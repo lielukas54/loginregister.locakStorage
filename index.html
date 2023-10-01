@@ -1,0 +1,115 @@
+<html>
+  <head>
+    SESI-5-CUYUNIVERSITY
+  </head>
+  <style>
+    #root {
+      background-color: white;
+      color: white;
+      font-size: 2em;
+      text-align: center;
+      height: 100vh;
+    }
+  </style>
+  <body>
+    <br />
+    <br />
+    <br />
+    <!-- INI KONTEN KITA -->
+    <div>
+      <input type="text" placeholder="Username" id="usernameInput" />
+      <input type="password" placeholder="Password" id="passwordInput" />
+      <button onclick="onLogin()" id="loginButton">LOGIN</button>
+      <button onclick="onLogout()" id="logoutButton">LOGOUT</button>
+      <br />
+      <h1 id="admin">LOGIN SEBAGAI ADMIN</h1>
+      <h1 id="basic">LOGIN SEBAGAI USER BIASA</h1>
+    </div>
+
+    <br />
+    <br />
+    <!-- REGISTER -->
+    <div>
+      <input type="text" placeholder="Username" id="usernameRegister" />
+      <input type="password" placeholder="Password" id="passwordRegister" />
+      <button onclick="onRegister()" id="registerButton">REGISTER</button>
+    </div>
+
+    <script type="application/javascript">
+      let usernameInput = document.getElementById("usernameInput");
+      let passwordInput = document.getElementById("passwordInput");
+      let loginButton = document.getElementById("loginButton");
+      let logoutButton = document.getElementById("logoutButton");
+      let admin = document.getElementById("admin");
+      let basic = document.getElementById("basic");
+      let usernameRegister = document.getElementById("usernameRegister");
+      let passwordRegister = document.getElementById("passwordRegister");
+      let registerButton = document.getElementById("registerButton");
+
+      admin.style.display = "none";
+      basic.style.display = "none";
+      logoutButton.style.display = "none";
+
+      function onRegister() {
+        logoutButton.style.display = "block";
+        if (usernameRegister.value && passwordRegister.value) {
+          localStorage.setItem("username", usernameRegister.value);
+          localStorage.setItem("password", passwordRegister.value);
+          localStorage.setItem("role", "basic");
+          usernameInput.style.display = "none";
+          passwordInput.style.display = "none";
+          loginButton.style.display = "none";
+          usernameRegister.style.display = "none";
+          passwordRegister.style.display = "none";
+          registerButton.style.display = "none";
+          basic.style.display = "block";
+          alert("Berhasil Register");
+        } else {
+          usernameRegister.value == "none" && passwordRegister.value == "none";
+          alert("Username / Password Kosong");
+          logoutButton.style.display = "none";
+        }
+      }
+
+      function onLogin() {
+        if (usernameInput.value == "admin" && passwordInput.value == "admin123") {
+          localStorage.setItem("role", "admin");
+          usernameInput.style.display = "none";
+          passwordInput.style.display = "none";
+          usernameRegister.style.display = "none";
+          passwordRegister.style.display = "none";
+          registerButton.style.display = "none";
+          loginButton.style.display = "none";
+          basic.style.display = "none";
+          admin.style.display = "block";
+          logoutButton.style.display = "block";
+          localStorage.setItem("username", usernameInput.value);
+        } else {
+          admin.style.display = "none";
+          basic.style.display = "none";
+          usernameInput.value == "none" && passwordInput.value == "none";
+          alert("Username / Password Salah");
+        }
+      }
+
+      if (localStorage.getItem("username")) {
+        usernameInput.style.display = "none";
+        passwordInput.style.display = "none";
+        loginButton.style.display = "none";
+        logoutButton.style.display = "block";
+        if (localStorage.getItem("role") == "admin") {
+          basic.style.display = "none";
+          admin.style.display = "block";
+        } else {
+          admin.style.display = "none";
+          basic.style.display = "block";
+        }
+      }
+
+      function onLogout() {
+        localStorage.clear();
+        location.reload();
+      }
+    </script>
+  </body>
+</html>
